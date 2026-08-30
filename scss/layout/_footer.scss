@@ -1,0 +1,33 @@
+.footer {
+  background-color: $dark-color;
+  color: #fff;
+  padding: 40px 32px 20px;
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    a {
+      display: block;
+      color: #ccc;
+      margin-bottom: 8px;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    margin-top: 40px;
+    color: $text-muted;
+    font-size: 14px;
+  }
+}

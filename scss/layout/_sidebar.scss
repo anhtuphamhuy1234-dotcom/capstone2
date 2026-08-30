@@ -1,0 +1,29 @@
+.sidebar {
+  width: 250px;
+  background-color: $dark-color;
+  color: #fff;
+  padding: 24px 16px;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+    padding-left: 12px;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    a {
+      color: #ccc;
+      padding: 10px 12px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+    }
+  }
+}

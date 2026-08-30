@@ -1,0 +1,43 @@
+.banner {
+  background-color: $light-bg;
+  padding: 60px 20px;
+  text-align: center;
+
+  .banner-content {
+    max-width: 600px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: $text-muted;
+      margin-bottom: 24px;
+    }
+  }
+}
+
+.categories, .products {
+  padding: 40px 32px;
+
+  h2 {
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    @include flex-center;
+    margin-bottom: 24px;
+
+    a {
+      color: $primary-color;
+    }
+  }
+}
+
+.category-list, .product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}

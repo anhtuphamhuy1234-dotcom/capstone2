@@ -1,0 +1,15 @@
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: $primary-color;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

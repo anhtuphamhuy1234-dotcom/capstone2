@@ -1,0 +1,15 @@
+.products-page {
+  padding: 32px;
+
+  .product-tools {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+
+    input, select {
+      padding: 8px 12px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+    }
+  }
+}

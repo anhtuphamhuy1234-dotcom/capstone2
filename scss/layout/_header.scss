@@ -1,0 +1,34 @@
+.header {
+  @include flex-center;
+  padding: 16px 32px;
+  background-color: #fff;
+  border-bottom: 1px solid $border-color;
+
+  .logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: $dark-color;
+  }
+
+  .navbar {
+    display: flex;
+    gap: 20px;
+
+    a {
+      color: $dark-color;
+      
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 16px;
+
+    a {
+      color: $dark-color;
+    }
+  }
+}
