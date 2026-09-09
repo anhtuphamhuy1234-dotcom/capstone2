@@ -22,12 +22,12 @@ console.log("Có phải mảng không:", Array.isArray(result.content));
 
             let products = result;
 
-            // Trường hợp API trả về { data: [...] }
+           
             if (result.data) {
                 products = result.content;
             }
 
-            renderProducts(products);
+            renderProducts(products.content);
         })
         .catch(error => {
             console.error(error);
@@ -40,12 +40,13 @@ console.log("Có phải mảng không:", Array.isArray(result.content));
 
 
 function renderProducts(products) {
+    
 
     const productList = document.getElementById("productList");
 
     productList.innerHTML = "";
 
-    // Chỉ lấy 4 sản phẩm đầu tiên
+    
     products.slice(0, 4).forEach(product => {
 
         const image = product.imgLink || product.image || "images/product1.jpg";
