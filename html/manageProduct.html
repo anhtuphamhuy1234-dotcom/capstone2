@@ -78,31 +78,50 @@
         <!-- SEARCH -->
         <div class="admin-tools">
 
-            <input
-                type="text"
-                id="searchInput"
-                class="form-control"
-                placeholder="Tìm sản phẩm...">
+    <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Tìm sản phẩm...">
 
-            <button
-                type="button"
-                class="btn btn-primary"
-                onclick="searchProduct()">
+    <button
+        type="button"
+        class="btn btn-primary"
+        onclick="searchProduct()">
 
-                Tìm kiếm
+        Tìm kiếm
 
-            </button>
+    </button>
 
-            <button
-                type="button"
-                class="btn btn-secondary"
-                onclick="loadProducts()">
+    <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="loadProducts()">
 
-                Tất cả
+        Tất cả
 
-            </button>
+    </button>
 
-        </div>
+    <select
+        id="sortPrice"
+        class="form-select"
+        onchange="sortProducts()">
+
+        <option value="">
+            Sắp xếp theo giá
+        </option>
+
+        <option value="asc">
+            Giá thấp → cao
+        </option>
+
+        <option value="desc">
+            Giá cao → thấp
+        </option>
+
+    </select>
+
+</div>
 
 
         <!-- PRODUCT TABLE -->
@@ -414,10 +433,9 @@
 <!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<!-- JAVASCRIPT CỦA MÌNH -->
-<script src="../js/product.js"></script>
-
+<script src="../js/admin.js"></script>
 </body>
 
 </html>
