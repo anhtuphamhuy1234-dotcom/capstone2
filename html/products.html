@@ -50,19 +50,17 @@
 
         <input
             type="text"
+            id="searchInput"
             placeholder="Tìm kiếm sản phẩm..."
+            onkeyup="filterProducts()"
         >
 
-        <select>
+        <select id="categoryFilter" onchange="filterProducts()">
             <option value="">Tất cả danh mục</option>
-            <option value="fashion">Thời trang</option>
-            <option value="phone">Điện thoại</option>
-            <option value="laptop">Laptop</option>
-            <option value="accessory">Phụ kiện</option>
         </select>
 
-        <select>
-            <option value="">Sắp xếp</option>
+        <select id="sortPrice" onchange="filterProducts()">
+            <option value="">Sắp xếp giá</option>
             <option value="asc">Giá thấp → cao</option>
             <option value="desc">Giá cao → thấp</option>
         </select>
@@ -71,105 +69,16 @@
 
 
     <!-- PRODUCT LIST -->
-    <div class="product-list">
-
-        <div class="product-card">
-
-            <img src="images/product1.jpg"
-                 alt="Áo thun nam">
-
-            <div class="product-info">
-
-                <h3>Áo thun nam</h3>
-
-                <p class="price">
-                    250.000 VNĐ
-                </p>
-
-                <a href="product-detail.html"
-                   class="btn">
-                    Xem chi tiết
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="product-card">
-
-            <img src="images/product2.jpg"
-                 alt="Giày thể thao">
-
-            <div class="product-info">
-
-                <h3>Giày thể thao</h3>
-
-                <p class="price">
-                    850.000 VNĐ
-                </p>
-
-                <a href="product-detail.html"=
-                   class="btn">
-                    Xem chi tiết
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="product-card">
-
-            <img src="images/product3.jpg"
-                 alt="Tai nghe">
-
-            <div class="product-info">
-
-                <h3>Tai nghe Bluetooth</h3>
-
-                <p class="price">
-                    550.000 VNĐ
-                </p>
-
-                <a href="product-detail.html"
-                   class="btn">
-                    Xem chi tiết
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="product-card">
-
-            <img src="images/product4.jpg"
-                 alt="Balo">
-
-            <div class="product-info">
-
-                <h3>Balo thời trang</h3>
-
-                <p class="price">
-                    450.000 VNĐ
-                </p>
-
-                <a href="product-detail.html"
-                   class="btn">
-                    Xem chi tiết
-                </a>
-
-            </div>
-
-        </div>
-
+    <div class="product-list" id="productsContainer">
     </div>
 
 </main>
 ```
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/cartItem.js"></script>
+    <script src="../js/productsPage.js"></script>
 
 </body>
 </html>
