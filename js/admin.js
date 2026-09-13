@@ -82,13 +82,27 @@ function renderProducts(list = products) {
             categoryName = product.category;
         }
 
-        let image = product.imgLink || product.image || "https://via.placeholder.com/70";
+        let image = product.imgLink || product.image || "";
+        image = String(image).trim();
+
+        const invalidValues = ["string", "null", "undefined", ""];
+        if (invalidValues.includes(image.toLowerCase())) {
+            image = "";
+        }
+
+        if (image && !image.startsWith("http")) {
+            image = `${API_URL}/images/${image}`;
+        }
+
+        if (!image) {
+            image = "https://via.placeholder.com/70";
+        }
 
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${product.id ?? ""}</td>
             <td>
-                <img src="${image}" width="70" height="70" style="object-fit: cover;" alt="${product.name ?? ""}">
+               <img src="${image}" width="70" height="70" style="object-fit: cover;" alt="${product.name ?? ""}">
             </td>
             <td class="fw-bold">${product.name ?? ""}</td>
             <td>${formatPrice(product.price)}</td>
