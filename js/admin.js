@@ -82,27 +82,28 @@ function renderProducts(list = products) {
             categoryName = product.category;
         }
 
-        let image = product.imgLink || product.image || "";
-        image = String(image).trim();
+       let image = product.imgLink || product.image || "";
+image = String(image).trim();
 
-        const invalidValues = ["string", "null", "undefined", ""];
-        if (invalidValues.includes(image.toLowerCase())) {
-            image = "";
-        }
-
-        if (image && !image.startsWith("http")) {
-            image = `${API_URL}/images/${image}`;
-        }
-
-        if (!image) {
-            image = "https://via.placeholder.com/70";
-        }
+if (
+    !image ||
+    image.toLowerCase() === "string" ||
+    image.toLowerCase() === "null" ||
+    image.toLowerCase() === "undefined"
+) {
+    image = "";
+} else if (
+    !image.startsWith("http://") &&
+    !image.startsWith("https://")
+) {
+    image = `${API_URL}/images/${image}`;
+}
 
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${product.id ?? ""}</td>
             <td>
-               <img src="${image}" width="70" height="70" style="object-fit: cover;" alt="${product.name ?? ""}">
+            <img src="${image}" width="70" height="70" style="object-fit: cover;" alt="${product.name ?? ""}" onerror="this.style.display='none'">
             </td>
             <td class="fw-bold">${product.name ?? ""}</td>
             <td>${formatPrice(product.price)}</td>
@@ -257,9 +258,14 @@ async function saveProduct(event) {
     size: sizeArray,
     shortDescription: shortDescription,
     quantity: quantity,
-    categories: selectedCategory ? [{ id: selectedCategory.id, category: selectedCategory.category || selectedCategory.name }] : [],
-    image: image || "https://via.placeholder.com/150",
-    imgLink: image || "https://via.placeholder.com/150"
+    categories: selectedCategory
+        ? [{
+            id: selectedCategory.id,
+            category: selectedCategory.category || selectedCategory.name
+        }]
+        : [],
+    imgLink: image,
+    image: image
 };
 
     try {
