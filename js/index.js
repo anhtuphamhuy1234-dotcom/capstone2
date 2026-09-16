@@ -6,27 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadProducts() {
-    fetch(`${API_URL}/api/Product`)
+    axios.get(`${API_URL}/api/Product`)
         .then(response => {
-            if (!response.ok) throw new Error("Không thể lấy danh sách sản phẩm");
-            return response.json();
-        })
-        .then(result => {
-            if (Array.isArray(result)) {
-                productListArray = result;
-            } else if (result.content && Array.isArray(result.content)) {
-                productListArray = result.content;
-            } else if (result.data && Array.isArray(result.data)) {
-                productListArray = result.data;
-            } else {
-                productListArray = [];
-            }
+            const result = response.data.content || response.data;
+            productListArray = Array.isArray(result) ? result : [];
             renderProducts(productListArray);
         })
         .catch(error => {
-            console.error(error);
+            console.error("Lỗi lấy danh sách sản phẩm:", error);
             const container = document.getElementById("productList");
-            if (container) container.innerHTML = `<p>Không thể tải sản phẩm.</p>`;
+            if (container) container.innerHTML = `<p class="col-12 text-center text-danger">Không thể tải sản phẩm.</p>`;
         });
 }
 
@@ -57,8 +46,18 @@ function formatPrice(price) {
 }
 
 function addToCart(productId) {
-    const product = productListArray.find(item => item.id == productId);
-    if (!product) return;
+    const itemData = productListArray.find(item => item.id == productId);
+    if (!itemData) return;
+
+    const productObj = new Product(
+        itemData.id,
+        itemData.name,
+        itemData.price,
+        itemData.image || itemData.imgLink,
+        itemData.description,
+        itemData.quantity,
+        itemData.categories
+    );
 
     let cart = JSON.parse(localStorage.getItem("CART_LIST")) || [];
 
@@ -66,9 +65,9 @@ function addToCart(productId) {
     if (index !== -1) {
         cart[index].quantity += 1;
     } else {
-        cart.push(new CartItem(product, 1));
+        cart.push(new CartItem(productObj, 1));
     }
 
     localStorage.setItem("CART_LIST", JSON.stringify(cart));
-    alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+    alert(`Đã thêm "${productObj.name}" vào giỏ hàng!`);
 }

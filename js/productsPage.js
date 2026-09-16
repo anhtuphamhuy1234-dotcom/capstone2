@@ -3,6 +3,10 @@ let listProducts = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     fetchProducts();
+
+    document.getElementById("searchInput")?.addEventListener("input", filterProducts);
+    document.getElementById("categoryFilter")?.addEventListener("change", filterProducts);
+    document.getElementById("sortPrice")?.addEventListener("change", filterProducts);
 });
 
 function fetchProducts() {
@@ -14,16 +18,16 @@ function fetchProducts() {
             filterProducts();
         })
         .catch(function (error) {
-            console.error("Lỗi khi tải sản phẩm:", error);
+            console.error(error);
             const container = document.getElementById("productsContainer");
             if (container) container.innerHTML = `<p style="color:red;">Không thể tải sản phẩm!</p>`;
         });
 }
 
 function filterProducts() {
-    let keyword = document.getElementById("searchInput").value.toLowerCase().trim();
-    let selectedCategory = document.getElementById("categoryFilter").value;
-    let sortPriceValue = document.getElementById("sortPrice").value;
+    let keyword = document.getElementById("searchInput")?.value.toLowerCase().trim() || "";
+    let selectedCategory = document.getElementById("categoryFilter")?.value || "";
+    let sortPriceValue = document.getElementById("sortPrice")?.value || "";
 
     let filteredList = listProducts.filter(function (product) {
         let matchName = product.name ? product.name.toLowerCase().includes(keyword) : false;
@@ -110,8 +114,18 @@ function checkCategoryFromURL() {
 }
 
 function addToCart(productId) {
-    const product = listProducts.find(item => item.id == productId);
-    if (!product) return;
+    const itemData = listProducts.find(item => item.id == productId);
+    if (!itemData) return;
+
+    const productObj = new Product(
+        itemData.id,
+        itemData.name,
+        itemData.price,
+        itemData.image || itemData.imgLink,
+        itemData.description,
+        itemData.quantity,
+        itemData.categories
+    );
 
     let cart = JSON.parse(localStorage.getItem("CART_LIST")) || [];
 
@@ -119,9 +133,9 @@ function addToCart(productId) {
     if (index !== -1) {
         cart[index].quantity += 1;
     } else {
-        cart.push(new CartItem(product, 1));
+        cart.push(new CartItem(productObj, 1));
     }
 
     localStorage.setItem("CART_LIST", JSON.stringify(cart));
-    alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+    alert(`Đã thêm "${productObj.name}" vào giỏ hàng!`);
 }

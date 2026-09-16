@@ -18,7 +18,9 @@ function renderCart() {
 
   if (!cart || cart.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4">Giỏ hàng của bạn đang trống!</td></tr>`;
-    document.getElementById("totalMoney").innerText = "0";
+    if (document.getElementById("subtotal")) document.getElementById("subtotal").innerText = "0 VNĐ";
+    if (document.getElementById("finalTotal")) document.getElementById("finalTotal").innerText = "0 VNĐ";
+    if (document.getElementById("totalMoney")) document.getElementById("totalMoney").innerText = "0";
     return;
   }
 
@@ -51,7 +53,11 @@ function renderCart() {
   });
 
   tbody.innerHTML = content;
-  document.getElementById("totalMoney").innerText = totalMoney.toLocaleString("vi-VN");
+
+  const formattedTotal = totalMoney.toLocaleString("vi-VN") + " VNĐ";
+  if (document.getElementById("subtotal")) document.getElementById("subtotal").innerText = formattedTotal;
+  if (document.getElementById("finalTotal")) document.getElementById("finalTotal").innerText = formattedTotal;
+  if (document.getElementById("totalMoney")) document.getElementById("totalMoney").innerText = totalMoney.toLocaleString("vi-VN");
 }
 
 function changeQuantity(id, amount) {
