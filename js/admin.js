@@ -1,5 +1,13 @@
 const API_URL = "https://apistore.cybersoft.edu.vn";
 
+// Ảnh placeholder dạng SVG inline — không phụ thuộc mạng ngoài nên không bao giờ lỗi network
+const FALLBACK_IMAGE = "data:image/svg+xml;base64," + btoa(`
+  <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70">
+    <rect width="100%" height="100%" fill="#e0e0e0"/>
+    <text x="50%" y="50%" font-size="10" text-anchor="middle" fill="#888" dy=".3em">No Image</text>
+  </svg>
+`);
+
 let products = [];
 let categories = [];
 let editingProductId = null;
@@ -110,13 +118,13 @@ function renderProducts(list = products) {
             categoryName = product.category;
         }
 
-        let image = product.imgLink || product.image || "https://via.placeholder.com/70";
+        let image = product.imgLink || product.image || FALLBACK_IMAGE;
 
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${product.id ?? ""}</td>
             <td>
-                <img src="${image}" width="60" height="60" style="object-fit: cover;" alt="${product.name ?? ""}" onerror="this.src='https://via.placeholder.com/60'">
+                <img src="${image}" width="60" height="60" style="object-fit: cover;" alt="${product.name ?? ""}" onerror="this.onerror=null; this.src='${FALLBACK_IMAGE}';">
             </td>
             <td class="fw-bold">${product.name ?? ""}</td>
             <td>${formatPrice(product.price)}</td>
@@ -266,11 +274,11 @@ async function saveProduct(event) {
         alias: alias || name.toLowerCase().replace(/ /g, "-"),
         price: price,
         description: description,
-        size: JSON.stringify(sizeArray),
+        
         shortDescription: shortDescription,
         quantity: quantity,
         deleted: false,
-        categories: JSON.stringify(categoriesArray),
+        
         relatedProducts: "[]",
         feature: true,
         image: image,
