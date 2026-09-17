@@ -141,10 +141,10 @@ function renderProducts(list = products) {
             <td>${product.quantity ?? 0}</td>
             <td><span class="badge bg-info text-dark">${categoryName}</span></td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm me-1" onclick="editProduct('${product.id}')">
+                <button type="button" class="btn btn-warning btn-sm me-1" style="font-size: 14px !important; color: #000 !important; width: auto !important; min-width: 60px !important; visibility: visible !important; opacity: 1 !important;" onclick="editProduct('${product.id}')">
                     Sửa
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteProduct('${product.id}')">
+                <button type="button" class="btn btn-danger btn-sm" style="font-size: 14px !important; color: #000 !important; width: auto !important; min-width: 60px !important; visibility: visible !important; opacity: 1 !important;" onclick="deleteProduct('${product.id}')">
                     Xóa
                 </button>
             </td>
