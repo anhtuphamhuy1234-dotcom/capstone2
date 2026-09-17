@@ -6,7 +6,16 @@ const FALLBACK_IMAGE = "data:image/svg+xml;base64," + btoa(`
     <text x="50%" y="50%" font-size="10" text-anchor="middle" fill="#888" dy=".3em">No Image</text>
   </svg>
 `);
+function getSafeImage(rawValue) {
+    if (!rawValue || typeof rawValue !== "string") return FALLBACK_IMAGE;
 
+    const matches = rawValue.match(/https?:\/\/[^\s"']+/g);
+    if (matches && matches.length > 0) {
+        return matches[matches.length - 1];
+    }
+
+    return FALLBACK_IMAGE;
+}
 let products = [];
 let categories = [];
 let editingProductId = null;
@@ -119,7 +128,7 @@ function renderProducts(list = products) {
             categoryName = product.category;
         }
 
-        let image = product.imgLink || product.image || FALLBACK_IMAGE;
+        let image = getSafeImage(product.imgLink || product.image);
 
         const row = document.createElement("tr");
         row.innerHTML = `
